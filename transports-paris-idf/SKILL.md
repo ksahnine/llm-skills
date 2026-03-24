@@ -1,7 +1,7 @@
 ---
 name: transport-paris-idf
 description: Interact with the IDF Mobilité transport network (Metro and Bus) in Paris/Ile-de-France
-metadata: {"nanobot":{"emoji":"🚌"}}
+metadata: {"nanobot":{"emoji":"🚌","requires":{"bins":["curl","jq","awk"]}}}
 ---
 # Skill: IDF Mobilité Transport CLI
 
