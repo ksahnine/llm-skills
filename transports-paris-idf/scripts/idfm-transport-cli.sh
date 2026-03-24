@@ -30,12 +30,12 @@ recherche_stations() {
     local type_reseau="$1"
     local station_name="$2"
 
-    if [ -z "$datafile" ]; then
+    if [ ! -f "$datafile" ]; then
         echo "[]"
         return
     fi
 
-    if [ ! -f "$PRIM_API_KEY" ]; then
+    if [ -z "$PRIM_API_KEY" ]; then
         echo "PRIM_API_KEY non renseignée."
         exit 1
     fi
