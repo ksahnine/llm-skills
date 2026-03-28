@@ -2,6 +2,7 @@
 
 # idfm-transport-cli.sh - CLI pour les transports IDF Mobilité
 Here=`dirname $0`
+source ${Here}/.env
 datafile="${Here}/datasets/arrets-lignes.csv"
 
 # --- Fonctions de formatage ---
