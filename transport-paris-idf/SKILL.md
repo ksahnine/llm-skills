@@ -1,6 +1,6 @@
 ---
 name: transport-paris-idf
-description: Interact with the IDF Mobilité transport network (Metro and Bus) in Paris/Ile-de-France
+description: Interact with the IDF Mobilité transport network (Metro, RER and Bus) in Paris/Ile-de-France
 metadata: {"nanobot":{"emoji":"🚌","requires":{"bins":["curl","jq","awk"]}}}
 ---
 # Skill: IDF Mobilité Transport CLI
@@ -82,5 +82,4 @@ A JSON array of departures:
 
 1.  **Search First:** Always search for the station using `stations metro` or `stations bus` before attempting to get schedules, unless the `id_station` is already known.
 2.  **Handle Multiple Results:** The search might return multiple lines for the same station name (e.g., Châtelet has lines 1, 4, 7, 11, 14). Filter the results based on the user's specific line if mentioned.
-3.  **Data Source:** The script uses a local dataset `datasets/arrets-lignes.csv` for station lookups and makes live API calls to IDF Mobilité for schedules. Ensure the dataset exists.
-4.  **Error Handling:** If a command returns an empty array `[]`, inform the user that no stations or schedules were found for the given input.
+3.  **Error Handling:** If a command returns an empty array `[]`, inform the user that no stations or schedules were found for the given input.
