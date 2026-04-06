@@ -27,6 +27,43 @@ format_to_json() {
 
 # --- Fonctions métier à implémenter ---
 
+localiser_arrets() {
+    local adresse="$1"
+    local distance=250 	# 250 metres
+
+    local lat_lon=`curl -s "https://nominatim.openstreetmap.org/search" -G \
+	        --data-urlencode "street=$adresse" \
+		--data-urlencode "city=Paris"  \
+		--data-urlencode "country=FR"  \
+		--data-urlencode "format=json" \
+		| jq -r '.[0] | {lat: .lat, lon: .lon}'`
+
+    local lat=`echo $lat_lon | jq -r ".lat"`
+    local lon=`echo $lat_lon | jq -r ".lon"`
+
+    if [ "$lat" == "null" ]
+    then
+        echo "[]"
+        return
+    fi
+
+    curl -s "https://prim.iledefrance-mobilites.fr/marketplace/v2/navitia/coord/$lon%3B$lat/stop_areas?distance=$distance" \
+            -H 'accept: application/json' \
+            -H "apiKey: $PRIM_API_KEY" \
+            | sed 's/stop_area:IDFM://g' \
+	    | jq '
+                [
+		  .stop_areas[]
+		  | select(.codes[] 
+		  | .value 
+		  | contains("multimodalStopPlace")) 
+		  | {
+		      id_station: .id, 
+		      name
+	            }
+	        ]' 
+}
+
 recherche_stations() {
     local type_reseau="$1"
     local station_name="$2"
@@ -79,6 +116,7 @@ usage() {
     echo "Usage: $0 {stations|horaires} [options]"
     echo ""
     echo "Commands:"
+    echo "  localiser <adresse>             Localiser des stations près d'une adresse"
     echo "  stations metro <nom_station>    Rechercher des stations de métro"
     echo "  stations bus <nom_station>      Rechercher des stations de bus"
     echo "  stations rer <nom_station>      Rechercher des stations de RER"
@@ -95,6 +133,16 @@ COMMAND=$1
 shift
 
 case "$COMMAND" in
+    localiser)
+        ADRESSE=$1
+        
+        if [ -z "$ADRESSE" ]; then
+            echo "Erreur: 'localiser' nécessite une adresse à Paris."
+            usage
+        fi
+	localiser_arrets "$1"
+        ;;
+
     stations)
         TYPE=$1
         QUERY=$2
