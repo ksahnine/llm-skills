@@ -12,6 +12,8 @@ Interaction avec le réseau de transport **IDF Mobilités** (Métro, Bus, RER) e
 - **Rechercher** des stations par nom (métro, bus, RER)
 - **Consulter** les horaires temps réel d'une plateforme
 
+**🔑 Prérequis :** Une clé API à créer sur la plateforme [PRIM](https://prim.iledefrance-mobilites.fr) (API temps réel). Copier la clé dans `transport-paris-idf/scripts/.env` à la variable `IDFM_API_KEY`.
+
 👉 [`transport-paris-idf/SKILL.md`](transport-paris-idf/SKILL.md)
 
 ### 📷 webcam
@@ -43,5 +45,5 @@ Chaque skill est auto-documenté dans son propre `SKILL.md`. Pour activer un ski
 
 ## Prérequis
 
-- **transport-paris-idf** : `curl`, `jq`, `awk`
+- **transport-paris-idf** : `curl`, `jq`, `awk`, une **clé API PRIM** (voir section correspondante)
 - **webcam** : `fswebcam`
