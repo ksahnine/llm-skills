@@ -113,5 +113,4 @@ A JSON array of departures:
 2.  **Station Name Second:** If the user provides a station name directly, use `stations metro/bus/rer`.
 3.  **Chain for Schedules:** After getting station IDs from `localiser` or `stations`, use `horaires` for each `id_station` to get real-time schedules.
 4.  **Handle Multiple Results:** The search might return multiple stations. Return schedules for all stations found, and for all directions (Aller and Retour).
-5.  **Paris local time:** Convert the `ExpectedArrivalTime` to local time (France).
-6.  **Error Handling:** If a command returns an empty array `[]`, inform the user that no stations or schedules were found for the given input.
+5.  **Error Handling:** If a command returns an empty array `[]`, inform the user that no stations or schedules were found for the given input.

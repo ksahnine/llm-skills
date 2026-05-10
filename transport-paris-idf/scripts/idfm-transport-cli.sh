@@ -181,7 +181,7 @@ case "$COMMAND" in
   DirectionName: .MonitoredVehicleJourney.DirectionName[0].value,
   StopPointName: .MonitoredVehicleJourney.MonitoredCall.StopPointName[0].value,
   VehicleAtStop: .MonitoredVehicleJourney.MonitoredCall.VehicleAtStop,
-  ExpectedArrivalTime: .MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime,
+  ExpectedArrivalTime: (.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime | gsub("\\.[0-9]+Z$"; "Z") | fromdateiso8601 | strflocaltime("%Y-%m-%d %H:%M:%S")),
   DirectionRef: .MonitoredVehicleJourney.DirectionRef.value
 } ]'
         ;;
